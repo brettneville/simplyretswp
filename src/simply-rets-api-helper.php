@@ -423,7 +423,7 @@ class SimplyRetsApiHelper {
 
         // image gallery js
         wp_register_script('simply-rets-galleria-js',
-                           plugins_url('assets/galleria/galleria-1.4.2.min.js', __FILE__),
+                           plugins_url('assets/galleria/src/galleria.js', __FILE__),
                            array('jquery'));
         wp_enqueue_script('simply-rets-galleria-js');
 
@@ -1092,7 +1092,7 @@ HTML;
         );
 
 
-        $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
+        $galleria_theme = plugins_url('assets/galleria/themes/twelve/galleria.twelve.js', __FILE__);
 
         // Build details link for map marker
         $link = SrUtils::buildDetailsLink(
@@ -1172,16 +1172,23 @@ HTML;
               if(document.getElementById('sr-fancy-gallery')) {
                   Galleria.loadTheme('$galleria_theme');
                   Galleria.configure({
-                      height: 500,
-                      width:  "90%",
+                      height: 600,
+                      width:  "100%",
                       showinfo: false,
                       dummy: "$dummy",
-                      lightbox: true,
-                      imageCrop: false,
+                      lightbox: false,
+                      imageCrop: true,
                       imageMargin: 0,
-                      fullscreenDoubleTap: true
+                      fullscreenDoubleTap: true,
+                      autoplay: true,
+                      variation: 'light'
+
                   });
-                  Galleria.run('.sr-gallery');
+                  Galleria.run('.sr-gallery', {
+                      height: 0.5625,
+                      _showPopout: false,
+                      _showTooltip: false
+                  });
               }
             </script>
             <div class="sr-primary-details">
