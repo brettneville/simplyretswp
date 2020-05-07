@@ -1,0 +1,226 @@
+
+We have modified this version of the SimplyRets plugin to utilize an updated version of Galleria...
+
+- This involved completely stripping out the assets > galleria folder and replacing with the updated version.
+- simply-rets-api-helper.php was modified as follows...
+	
+	LINE 1095:	$galleria_theme = plugins_url('assets/galleria/themes/twelve/galleria.twelve.js', __FILE__);
+
+	LINE 1171:	<script>
+	              if(document.getElementById('sr-fancy-gallery')) {
+	                  Galleria.loadTheme('$galleria_theme');
+	                  Galleria.configure({
+	                      height: 600,
+	                      width:  "100%",
+	                      showinfo: false,
+	                      dummy: "$dummy",
+	                      lightbox: false,
+	                      imageCrop: true,
+	                      imageMargin: 0,
+	                      fullscreenDoubleTap: true,
+	                      autoplay: true,
+	                      variation: 'light'
+
+	                  });
+	                  Galleria.run('.sr-gallery', {
+	                      height: 0.5625,
+	                      _showPopout: false,
+	                      _showTooltip: false
+	                  });
+	              }
+	            </script>
+
+
+The Plugin was also heavily modified with CSS to give the desired appearance. While we could have further modified the "simply-rets-api-helper.php" file to do so, we wanted to keep the actual plugin changes to a minimum, should it need to be updated in the future. As such, listed below are the initial CSS styles that we added...
+
+/* ---------------------------------------
+	  = SIMPLY RETS STYLES
+-----------------------------------------*/
+
+/* Setup listing layout and space */
+.sr-listing { display: inline-block !important; width: 30%; vertical-align: text-top; margin: 15px; }
+
+/* Style main listing photo */
+.sr-listing .sr-photo { display: inline-block !important; width: 100%; height: 250px; background-size: cover; }
+
+.sr-listing .sr-listing-data-wrapper { width: 100%; }
+
+/* Remove hr lines on listing */
+.sr-listing + hr { display: none; }
+#sr-listings-results-list hr {display: none !important; }
+
+/* Minor form styles */
+.sr-search input { padding-left: 5px; } 
+.sr-search input[type=submit] { text-transform: uppercase; background: #0c71c3; color: #fff; }
+
+/* remove background color and top padding */
+.sr-primary-data { background: transparent !important; padding-top: 0px !important; padding-bottom: 0px !important; }
+
+/* Style listing title */
+.page .sr-primary-data h4 { color: #373232; line-height: 1.1; font-weight: 500; font-size: 14px; margin-top: 0px !important; margin-bottom: 5px !important; padding: 0 !important; }
+
+/* Style listing price */
+small.sr-price { font-size: 100%; color: #0c71c3; line-height: 1.8; font-weight: bold; }
+
+/* Move price to next line */
+small.sr-price:before { content:"\A"; white-space: pre; }
+
+/* Remove italicized text on price */
+small.sr-price i { font-style: normal; }
+
+/* Remove data that isn't needed from first column */
+.sr-secondary-data ul.sr-data-column:first-child { display: none; }
+
+/* update list color and remove bullets */
+ul.sr-data-column { color: #4f636e; list-style-type: none;  margin: 0 !important; padding-left: 0px; }
+
+/* Strip padding from above beds, baths, sqft and show them inline */
+.sr-secondary-data { padding-top: 0 !important; border-top: 1px solid #cdcdcd;}
+.sr-secondary-data ul { display: flex; }
+.sr-secondary-data ul > li { flex-grow: 1; color: #666; font-size: 14px; }
+
+/* style button */ 
+.more-details-link a { display: none; }
+
+
+/* ---------------------------------------
+	  = SINGLE LISTINGS
+-----------------------------------------*/
+
+/* Style map link */
+.sr-details-links a { border-radius: 0; padding: 7px; background: #0c71c3; color: #fff; font-size: 12px !important; border: none; text-transform: uppercase; }
+
+/* Style listing address in gallery */
+.galleria-theme-twelve .galleria-info-title { font-size: 14px !important; color: #666 !important;}
+
+/* Style listing quick specs box */
+.sr-primary-details { padding-top: 0px !important; border-top: 1px solid #efefef; }
+.sr-detail h3 { font-size: 18px; }
+
+/* Table styles in single listing details */
+.sr-listings-template-default .sr-details table thead th, .page-template-simplyrets .sr-details table thead th {color: #fff; background-color: #0c71c3; padding: 1rem; }
+
+/* Style table rows */
+.sr-listings-template-default .sr-details table tbody td, .page-template-simplyrets .sr-details table tbody td {padding: 1rem; border-top: 1px solid #ddd; }
+
+/* Style Headings */
+.sr-details h5 { font-size: 18px; }
+
+/* Zibra stripe table rows */
+.sr-listings-template-default .sr-details table tbody tr:nth-child(odd), .page-template-simplyrets .sr-details table tbody tr:nth-child(odd) {background: #f9f9f9; }
+
+/* ---------------------------------------
+	  = Hide single listing items... 
+-----------------------------------------*/
+
+/*
+
+tr[data-attribute='property-style'],
+tr[data-attribute='close-price'],
+tr[data-attribute='bedrooms'],
+tr[data-attribute='full-baths'],
+tr[data-attribute='half-baths'],
+tr[data-attribute='total-baths'],
+tr[data-attribute='property-style'],
+tr[data-attribute='acres'],
+tr[data-attribute='property-type'],
+tr[data-attribute='sub-type'],
+tr[data-attribute='stories'],
+tr[data-attribute='features'],
+tr[data-attribute='exterior-features'],
+tr[data-attribute='year-built'],
+tr[data-attribute='fireplaces'],
+tr[data-attribute='subdivision'],
+tr[data-attribute='view'],
+tr[data-attribute='roof'],
+tr[data-attribute='heating'],
+tr[data-attribute='foundation'],
+tr[data-attribute='lot-description'],
+tr[data-attribute='laundry-features'],
+tr[data-attribute='parking-description'],
+tr[data-attribute='garage-spaces'],
+tr[data-attribute='association-name'],
+tr[data-attribute='association-fee'],
+tr[data-attribute='directions'],
+tr[data-attribute='county'],
+tr[data-attribute='address'],
+tr[data-attribute='postal-code'], 
+tr[data-attribute='city'],
+tr[data-attribute='state'],
+tr[data-attribute='country'],
+tr[data-attribute='listing-office'],
+tr[data-attribute='listing-agent'],
+tr[data-attribute='elementary-school'],
+tr[data-attribute='middle-school'],
+tr[data-attribute='high-school'],
+tr[data-attribute='days-on-market'],
+tr[data-attribute='mls-status'],
+tr[data-attribute='mls-#'],
+tr[data-attribute='virtual-tour-url']
+{
+	display: none !important;	
+}
+
+*/
+
+/* Style map and contact headings */
+#details-map h3, #sr-contact-form h3 { color: #0c71c3 }
+
+/* Style contact form submit button */
+.single-sr-listings .btn { border-radius: 0; padding: 7px; background: #0c71c3; color: #fff; font-size: 14px; border: none; text-transform: uppercase;  }
+
+
+/* ---------------------------------------
+	  = SLIDER Widget Styles
+-----------------------------------------*/
+/* Style listing title */
+.sr-listing-slider-item-address { color: #373232 !important; line-height: 1.1; font-weight: 500; font-size: 14px !important; margin-top: 10px !important; margin-bottom: 5px !important; padding: 0 !important; }
+
+/* Style listing price */
+.sr-listing-slider-item-address small { font-size: 16px !important; color: #0c71c3 !important; line-height: 1.8; font-weight: bold; }
+
+/* Move price to next line */
+.sr-listing-slider-item-address small:before { content:"\A"; white-space: pre; }
+
+/* ---------------------------------------
+	  = MAP Search Widget
+-----------------------------------------*/
+/* Style listing title */
+h4.sr-iw-addr { color: #373232 !important; line-height: 1.1; font-weight: 500; font-size: 14px !important; margin-top: 0px !important; margin-bottom: 5px !important; padding: 0 !important; }
+
+/* Style listing price */
+h4.sr-iw-addr small { font-size: 16px !important; color: #0c71c3 !important; line-height: 1.2; font-weight: bold; }
+
+/* Move price to next line */
+h4.sr-iw-addr small:before { content:"\A"; white-space: pre; }
+
+/* Style bed/bath/status specs */
+.sr-iw-inner__primary p {margin-top: 5px !important; margin-bottom: 5px !important; font-size: 15px !important; }
+
+
+
+/* ---------------------------------------
+	= RESPONSIVE STYLES
+-----------------------------------------*/
+@media (max-width: 1200px) {
+	.sr-listing { width: 45%; }
+	.sr-listing .sr-photo { height: 300px; }
+}
+
+@media (max-width: 992px) {
+	.sr-listing { width: 45%; }
+	.sr-listing .sr-photo { height: 230px; }
+}
+
+@media (max-width: 767px) {
+	.sr-listing { width: 94%; }
+	.sr-listing .sr-photo { height: 450px; }
+}
+
+@media (max-width: 600px) {
+	.sr-listing .sr-photo { height: 350px; }
+}
+
+@media (max-width: 450px) {
+	.sr-listing .sr-photo { height: 250px; }
+}
