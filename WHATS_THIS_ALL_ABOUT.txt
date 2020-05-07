@@ -57,7 +57,7 @@ The Plugin was also heavily modified with CSS to give the desired appearance. Wh
 .sr-primary-data { background: transparent !important; padding-top: 0px !important; padding-bottom: 0px !important; }
 
 /* Style listing title */
-.page .sr-primary-data h4 { color: #373232; line-height: 1.1; font-weight: 500; font-size: 14px; margin-top: 0px !important; margin-bottom: 5px !important; padding: 0 !important; }
+.page .sr-primary-data h4, .single .sr-primary-data h4 { color: #373232; line-height: 1.1; font-weight: 500; font-size: 14px; margin-top: 0px !important; margin-bottom: 5px !important; padding: 0 !important; }
 
 /* Style listing price */
 small.sr-price { font-size: 100%; color: #0c71c3; line-height: 1.8; font-weight: bold; }
